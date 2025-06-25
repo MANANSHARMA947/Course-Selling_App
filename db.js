@@ -11,8 +11,8 @@ const ObjectId = Schema.ObjectId;
 const userSchema = new Schema({
     email:String,
     password:String,
-    firstanme:String,
-    lastname:String
+    firstName:String,
+    lastName:String
 })
 const courseSchema = new Schema({
     title:String,
@@ -24,8 +24,8 @@ const courseSchema = new Schema({
 const adminSchema = new Schema({
     email:String,
     password:String,
-    firstanme:String,
-    lastname:String
+    firstName:String,
+    lastName:String
 })
 const purchaseSchema = new Schema({
   userId:ObjectId,

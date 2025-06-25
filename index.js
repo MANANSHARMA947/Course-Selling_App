@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-const JWT_SECRET = "iammanan";
+
 import dotenv from "dotenv";
 import { userRouter } from "./routes/user.js";
 import { courseRouter } from "./routes/course.js";
