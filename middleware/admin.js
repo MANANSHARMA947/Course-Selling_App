@@ -3,7 +3,7 @@ const JWT_ADMIN_PASSWORD = "iamadmin";
 
 
 
-function adminMiddleware(){
+function adminMiddleware(req,res,next){
     const token = req.headers.token;
     const decoded= jwt.verify(token,JWT_ADMIN_PASSWORD)
 
@@ -11,7 +11,7 @@ function adminMiddleware(){
         req.userId = decoded.id;
         next();
     }else{
-        res.status(403).jsom({
+        res.status(403).json({
             message:"ypu are not signed in"
         })
     }

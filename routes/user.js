@@ -5,7 +5,7 @@ const JWT_USER_PASSWORD = "iammanan";
 import { z } from "zod"
 import bcrypt from "bcrypt"
 const userRouter  =  Router();
-import { userModel } from "../db.js";
+import { userModel , puchaseModel} from "../db.js";
 
 
 
@@ -84,9 +84,13 @@ userRouter.post("/signin",async function (req, res) {
 
 });
 userRouter.get("/purchases", function (req, res) {
+  const userId = req.userId;
+  const purchases = puchaseModel.find({
+    userId
+  })
   res.json({
-    message: "done",
-  });
+    purchases
+  })
 });
 
 export {userRouter};

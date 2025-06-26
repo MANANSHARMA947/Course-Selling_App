@@ -1,6 +1,6 @@
 import express from "express";
 const Router = express.Router;
-import { adminModel , courseModel} from "../db.js";
+import { adminModel, courseModel } from "../db.js";
 import adminMiddleware from "../middleware/admin.js";
 import jwt from "jsonwebtoken";
 const JWT_ADMIN_PASSWORD = "iamadmin";
@@ -81,17 +81,24 @@ adminRouter.post("/signin", async function (req, res) {
   }
 });
 
-adminRouter.post("/course", adminMiddleware, function (req, res) {
+adminRouter.post("/course", adminMiddleware, async function (req, res) {
   const adminId = req.userId;
-  const {title,description,price,imageUrl,userId} = req.body;
 
-courseModel.create({
-  title,price,description,imageUrl,userId
-})
-res.json({
-  message:"course created",
-  courseId: course._id
-})
+  const { title, description, imageUrl, price } = req.body;
+
+  // creating a web3 saas in 6 hours
+  const course = await courseModel.create({
+    title: title,
+    description: description,
+    imageUrl: imageUrl,
+    price: price,
+    creatorId: adminId,
+  });
+
+  res.json({
+    message: "Course created",
+    courseId: course._id,
+  });
 });
 
 adminRouter.put("/course", adminMiddleware, async function(req, res) {
@@ -116,17 +123,17 @@ adminRouter.put("/course", adminMiddleware, async function(req, res) {
     })
 })
 
-adminRouter.get("/course/bulk", adminMiddleware,async function (req, res) {
+adminRouter.get("/course/bulk", adminMiddleware, async function (req, res) {
   const adminId = req.userId;
 
-    const courses = await courseModel.find({
-        creatorId: adminId 
-    });
+  const courses = await courseModel.find({
+    creatorId: adminId,
+  });
 
-    res.json({
-        message: "Course updated",
-        courses
-    })
-})
+  res.json({
+    message: "your Course ",
+    courses,
+  });
+});
 
 export default adminRouter;
